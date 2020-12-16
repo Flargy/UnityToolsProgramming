@@ -344,7 +344,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   material: {fileID: 2100000, guid: d975eab2ca139c849b546fded56e072a, type: 2}
   shader: {fileID: 0}
-  flowSpeed: 0.44
+  flowSpeed: 0.217
   offset: 0.126
   tiling: 2.5
   whiteColor: {r: 0.43614274, g: 0.9339623, b: 0.8104185, a: 1}

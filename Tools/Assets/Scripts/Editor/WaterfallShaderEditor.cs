@@ -72,7 +72,8 @@ namespace WaterfallShader
             whiteColor = serializedObject.FindProperty("whiteColor");
             darkenedColor = serializedObject.FindProperty("darkenedColor");
             blackColor = serializedObject.FindProperty("blackColor");
-            
+            waterfallMasks = serializedObject.FindProperty("waterfallMasks");
+
         }
 
         public void ShowWaterfallUI()
@@ -100,14 +101,35 @@ namespace WaterfallShader
 
             FontStyle originalFontStyle = EditorStyles.label.fontStyle;
             EditorStyles.label.fontStyle = FontStyle.Bold;
+            
+            DetailedExplanationBox("R channel: Main color Mask\n" +
+                                             "G channel: Highlight pattern \n" + 
+                                             "B channel: Variation map");
+            EditorGUILayout.ObjectField(waterfallMasks, typeof(Texture2D));
+            //flowSpeed.floatValue = EditorGUILayout.FloatField("Flow Speed", flowSpeed.floatValue);
+            flowSpeed.floatValue = EditorGUILayout.Slider(flowSpeed.floatValue, 0, 1);
+
+
 
         }
         private void SettignsUI()
         {
             
         }
-        
-        
+
+        void DetailedExplanationBox(string inputText)
+        {
+            EditorGUILayout.BeginHorizontal();
+            {
+                GUILayout.Label(inputText, new GUIStyle(EditorStyles.helpBox)
+                {
+                        alignment = TextAnchor.MiddleLeft,
+                        wordWrap = true,
+                        fontSize = 10
+                });
+            }
+            EditorGUILayout.EndHorizontal();
+        }
         
     }
 
