@@ -30,6 +30,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Editor/WaterfallShaderEditor.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Editor/WaterfallPresetReceiver.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/WaterfallShader.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
@@ -37,6 +38,7 @@
       <list>
         <option value="$PROJECT_DIR$/Assets/Shader/Waterfall.shader" />
         <option value="$PROJECT_DIR$/Assets/Scripts/WaterfallShader.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Editor/WaterfallPresetReceiver.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Editor/WaterfallShaderEditor.cs" />
       </list>
     </option>
@@ -85,6 +87,7 @@
       <workItem from="1607937013736" duration="5904000" />
       <workItem from="1608023973881" duration="6435000" />
       <workItem from="1608124169700" duration="606000" />
+      <workItem from="1608197502600" duration="9177000" />
     </task>
     <servers />
   </component>

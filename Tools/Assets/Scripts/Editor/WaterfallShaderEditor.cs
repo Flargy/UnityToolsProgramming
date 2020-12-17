@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
+using UnityEditor.Presets;
 
 namespace WaterfallShader
 {
@@ -11,6 +12,8 @@ namespace WaterfallShader
         private GameObject selected;
 
         private WaterfallShaderEditor waterfallShaderEditor;
+        private WaterfallPresetReceiver waterfallPresetReceiver;
+        private string presetName;
 
         private new SerializedObject serializedObject;
 
@@ -21,7 +24,7 @@ namespace WaterfallShader
         private SerializedProperty darkenedColor;
         private SerializedProperty blackColor;
         private SerializedProperty waterfallMasks;
-
+        
 
         private void OnEnable()
         {
@@ -98,7 +101,7 @@ namespace WaterfallShader
             EditorGUILayout.EndHorizontal();
             
             EditorGUILayout.Space();
-
+            
             FontStyle originalFontStyle = EditorStyles.label.fontStyle;
             EditorStyles.label.fontStyle = FontStyle.Bold;
             
@@ -106,8 +109,19 @@ namespace WaterfallShader
                                              "G channel: Highlight pattern \n" + 
                                              "B channel: Variation map");
             EditorGUILayout.ObjectField(waterfallMasks, typeof(Texture2D));
-            //flowSpeed.floatValue = EditorGUILayout.FloatField("Flow Speed", flowSpeed.floatValue);
-            flowSpeed.floatValue = EditorGUILayout.Slider(flowSpeed.floatValue, 0, 1);
+            
+            ExplanationBox("Variables");
+            
+            // Different ways of doing it
+            offset.floatValue = EditorGUILayout.Slider("Offset:",offset.floatValue, 0.1f, 1); // Probably more expensive
+            EditorGUILayout.Slider(tiling, 1f, 10f, "Tiling");
+            EditorGUILayout.Slider(flowSpeed, 0, 1, "Flow Speed");
+            
+            ExplanationBox("Colors");
+            
+            EditorGUILayout.PropertyField(whiteColor, new GUIContent("White color:"));
+            darkenedColor.colorValue = EditorGUILayout.ColorField("Darkened color:", darkenedColor.colorValue);
+            blackColor.colorValue = EditorGUILayout.ColorField("Black color:", blackColor.colorValue);
 
 
 
@@ -116,6 +130,29 @@ namespace WaterfallShader
         {
             
         }
+
+        public void OnSavePresetClicked()
+        {
+            presetName = presetName.Trim();
+
+            if (string.IsNullOrEmpty(presetName))
+            {
+                EditorUtility.DisplayDialog("Unable to save preset", "Please select and valid name preset", "Close");
+                return;
+            }
+            
+            CreatePresetAsset(waterfallShader, presetName);
+            EditorUtility.DisplayDialog("Preset Saved", "The preset was saved", "Close");
+                
+            
+        }
+
+        private void CreatePresetAsset(WaterfallShader source, string presetName)
+        {
+            Preset preset = new Preset(source);
+            AssetDatabase.CreateAsset(preset, "Assets/Scripts/" + "WS_" + name + ".preset");
+        }
+
 
         void DetailedExplanationBox(string inputText)
         {
@@ -126,6 +163,20 @@ namespace WaterfallShader
                         alignment = TextAnchor.MiddleLeft,
                         wordWrap = true,
                         fontSize = 10
+                });
+            }
+            EditorGUILayout.EndHorizontal();
+        }
+        
+        void ExplanationBox(string inputText)
+        {
+            EditorGUILayout.BeginHorizontal();
+            {
+                GUILayout.Label(inputText, new GUIStyle(EditorStyles.helpBox)
+                {
+                    alignment = TextAnchor.MiddleLeft,
+                    wordWrap = true,
+                    fontSize = 12
                 });
             }
             EditorGUILayout.EndHorizontal();
